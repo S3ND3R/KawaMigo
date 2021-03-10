@@ -1,5 +1,4 @@
 import Phaser from 'phaser'
-import kawamigoImg from '../assets/KawaMigo.png';
 
 export default class Game extends Phaser.Scene
 {
@@ -8,22 +7,12 @@ export default class Game extends Phaser.Scene
         super('game');
     }
 
-    preload ()
-    {
-        this.load.image('kmLogo', kawamigoImg);
-    }
-        
     create ()
     {
-        const kwLogo = this.add.image(400, 150, 'kmLogo');
-                
-        this.tweens.add({
-            targets: kwLogo,
-            y: 450,
-            duration: 2500,
-            ease: "Power2",
-            yoyo: true,
-            loop: -1
-        });
+        const {width, height} = this.scale;
+
+        const egg = this.physics.add.sprite(width * 0.5, height * 0.75, 'eggSheet')
+        .play('egg-idle');
+
     }
 }
