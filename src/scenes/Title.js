@@ -23,7 +23,14 @@ export default class Title extends Phaser.Scene
         });
 
         const egg = this.physics.add.sprite(width * 0.5, height * 0.75, 'eggSheet')
+        .setInteractive()
         .play('egg-idle');
+
+        egg.on('pointerdown', function () {
+            this.setTint(0xff0000);
+            this.scene.scene.start('game');
+            console.log(this);
+        });
 
     }
 }
