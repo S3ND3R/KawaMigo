@@ -27,7 +27,7 @@ export default class Title extends Phaser.Scene
         .play('egg-idle');
 
         egg.on('pointerdown', function () {
-            this.scene.scene.start('game');
+            this.play('egg-hatch');
         });
 
     }
