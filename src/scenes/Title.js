@@ -27,9 +27,7 @@ export default class Title extends Phaser.Scene
         .play('egg-idle');
 
         egg.on('pointerdown', function () {
-            this.setTint(0xff0000);
             this.scene.scene.start('game');
-            console.log(this);
         });
 
     }

@@ -25,7 +25,13 @@ export default class Preloader extends Phaser.Scene
             frameRate: 5,
             repeat: -1,
             repeatDelay: 100
-        })
+        });
+
+        this.anims.create({
+            key: 'egg-hatch',
+            frames: this.anims.generateFrameNumbers('eggSheet', {start: 4, end: 9}),
+            frameRate: 5
+        });
 
         this.scene.start('title');
     }
