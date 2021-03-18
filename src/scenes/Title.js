@@ -1,10 +1,14 @@
 import Phaser from 'phaser'
+import Egg from '../sprites/Egg'
 
 export default class Title extends Phaser.Scene
 {
     constructor ()
     {
         super('title');
+
+        /** @type {Phaser.Physics.Arcade.Sprite} */
+        this.egg;
     }
         
     create ()
@@ -22,13 +26,7 @@ export default class Title extends Phaser.Scene
             loop: -1
         });
 
-        const egg = this.physics.add.sprite(width * 0.5, height * 0.75, 'eggSheet')
-        .setInteractive()
-        .play('egg-idle');
-
-        egg.on('pointerdown', function () {
-            this.play('egg-hatch');
-        });
-
+        this.egg = new Egg(this, width * 0.5, height * 0.75, 'eggSheet');
+        this.egg.hatch();
     }
 }
