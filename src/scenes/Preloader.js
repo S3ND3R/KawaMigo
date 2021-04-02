@@ -13,9 +13,11 @@ export default class Preloader extends Phaser.Scene
     preload()
     {
         this.load.image('kmLogo', kawamigoImg);
+
         this.load.spritesheet('eggSheet', eggSheet, {
             frameWidth: 128
         });
+
         this.load.spritesheet('baby', KawaBaby, {
             frameWidth: 128
         });

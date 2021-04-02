@@ -26,7 +26,15 @@ export default class Title extends Phaser.Scene
             loop: -1
         });
 
-        this.egg = new Egg(this, width * 0.5, height * 0.75, 'eggSheet');
-        this.egg.hatch();
+        this.add.text(350, 550, '[Press Space Bar]', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' });
+
+        this.input.keyboard.once('keydown-SPACE', () => {
+            // fade to black
+            this.cameras.main.fadeOut(500, 255, 69, 0)
+        })
+    
+        this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+            this.scene.start('game')
+        })
     }
 }
