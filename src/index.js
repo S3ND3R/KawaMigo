@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import Game from './scenes/Game'
+import GameUI from './scenes/GameUI';
 import Preloader from './scenes/Preloader'
 import Title from './scenes/Title'
 
@@ -17,7 +18,7 @@ const config = {
             debug: true
         }
     },
-    scene: [Preloader, Title, Game],
+    scene: [Preloader, Title, Game, GameUI],
 	backgroundColor: "#002fa7"
 };
 
