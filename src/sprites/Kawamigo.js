@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { sceneEvents } from '../events/EventsCenter';
 
 export default class Kawamigo extends Phaser.Physics.Arcade.Sprite
 {
@@ -17,8 +18,20 @@ export default class Kawamigo extends Phaser.Physics.Arcade.Sprite
         this.setInteractive();
         scene.add.existing(this)
         scene.physics.add.existing(this)
-        this.health = 100;
+        this.hunger = 100;
+        this.time = 0;
 
+    }
+
+    preUpdate(t, dt)
+    {
+        super.preUpdate(t, dt);
+        this.time += dt;
+        if (this.time > 2000)
+        {
+            this.decreaseHunger();
+            this.time = 0;
+        }
     }
 
     update()
@@ -26,16 +39,29 @@ export default class Kawamigo extends Phaser.Physics.Arcade.Sprite
 
     }
     
-    decreaseHealth()
+    decreaseHunger()
     {
-        this.health = this.health - 1;
-        console.log(this.health);
+        if (this.hunger <= 0)
+        {
+            return;
+        }
+        this.hunger -= 1;
+        sceneEvents.emit('kawa-hunger-changed', this.hunger);
+    }
+
+    feed()
+    {
+        if (this.hunger > 95)
+        {
+            return;
+        }
+        this.hunger += 5; 
+        sceneEvents.emit('kawa-hunger-changed', this.hunger);
     }
 }
 
 
 // Phaser.GameObjects.GameObjectFactory.register('kawamigo', function(this, x, y, texture, frame) {
-    
 //     var sprite = new Kawamigo(this.scene, x, y, texture, frame);
 
 //     this.displayList.add(sprite);

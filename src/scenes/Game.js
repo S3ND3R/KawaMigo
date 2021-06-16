@@ -18,8 +18,6 @@ export default class Game extends Phaser.Scene
         this.scene.run('gameUI');
         const {width, height} = this.scale;
         this.createKawamigo(width, height);
-        this.migo.decreaseHealth();
-
 
     //     const egg = this.physics.add.sprite(width * 0.5, height * 0.5, 'eggSheet')
     //     .play('egg-idle');
@@ -38,16 +36,16 @@ export default class Game extends Phaser.Scene
         //this.egg.hatch();
     }
 
-    handleDamage()
+    handleFeed()
     {
-        this.migo.decreaseHealth();
-        sceneEvents.emit('kawa-health-changed', this.migo.health);
+        this.migo.feed();
+        sceneEvents.emit('kawa-health-changed', this.migo.hunger);
     }
 
 
     createKawamigo(width, height)
     {
         this.migo = new Kawamigo(this, width * 0.5, height * 0.5, 'baby');
-        this.migo.on('pointerdown', this.handleDamage, this);
+        this.migo.on('pointerdown', this.handleFeed, this);
     }
 }
