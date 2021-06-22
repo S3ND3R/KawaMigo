@@ -18,7 +18,11 @@ export default class Kawamigo extends Phaser.Physics.Arcade.Sprite
         this.setInteractive();
         scene.add.existing(this)
         scene.physics.add.existing(this)
-        this.hunger = 100;
+        this.bars = {
+            hunger: 100,
+            happy: 100,
+            attitude: 100,
+        }
         this.time = 0;
 
     }
@@ -30,6 +34,8 @@ export default class Kawamigo extends Phaser.Physics.Arcade.Sprite
         if (this.time > 2000)
         {
             this.decreaseHunger();
+            this.decreaseHappy();
+            this.decreaseAttitude();
             this.time = 0;
         }
     }
@@ -41,22 +47,57 @@ export default class Kawamigo extends Phaser.Physics.Arcade.Sprite
     
     decreaseHunger()
     {
-        if (this.hunger <= 0)
+        if (this.bars.hunger <= 0)
         {
             return;
         }
-        this.hunger -= 1;
-        sceneEvents.emit('kawa-hunger-changed', this.hunger);
+        this.bars.hunger -= 1;
+        sceneEvents.emit('kawa-hunger-changed', this.bars.hunger);
+    }
+
+    decreaseHappy()
+    {
+        if (this.bars.happy <= 0)
+        {
+            return;
+        }
+        this.bars.happy -= 1;
+        sceneEvents.emit('kawa-happy-changed', this.bars.happy);
+    }
+
+    decreaseAttitude()
+    {
+        if (this.bars.attitude <= 0)
+        {
+            return;
+        }
+        this.bars.attitude -= 1;
+        sceneEvents.emit('kawa-attitude-changed', this.bars.attitude);
     }
 
     feed()
     {
-        if (this.hunger > 95)
+        if (this.bars.hunger > 95)
         {
             return;
         }
-        this.hunger += 5; 
-        sceneEvents.emit('kawa-hunger-changed', this.hunger);
+        this.bars.hunger += 5; 
+        sceneEvents.emit('kawa-hunger-changed', this.bars.hunger);
+    }
+
+    _hunger()
+    {
+        return this.bars.hunger;
+    }
+
+    _happy()
+    {
+        return this.bars.happy;
+    }
+
+    _attitude()
+    {
+        return this.bars.attitude;
     }
 }
 

@@ -39,7 +39,7 @@ export default class Game extends Phaser.Scene
     handleFeed()
     {
         this.migo.feed();
-        sceneEvents.emit('kawa-health-changed', this.migo.hunger);
+        sceneEvents.emit('kawa-health-changed', this.migo._hunger());
     }
 
 
